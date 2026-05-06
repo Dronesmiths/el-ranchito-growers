@@ -4,7 +4,10 @@
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
   hamburger.addEventListener('keydown', e => { if (e.key === 'Enter') navLinks.classList.toggle('open'); });
 }
 
@@ -33,15 +36,28 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
-// Contact form handler
-function handleSubmit(e) {
+// Contact form — POST to CRM API
+const CRM_API = 'https://el-ranchito-crm.vercel.app/api/leads';
+
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = document.getElementById('submit-btn');
+  const btn  = document.getElementById('submit-btn');
   const form = document.getElementById('contact-form');
+  const data = Object.fromEntries(new FormData(form));
+
+  if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+
+  try {
+    await fetch(CRM_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+  } catch (_) { /* non-blocking — CRM may not be live yet */ }
+
   if (btn) {
     btn.textContent = '✅ Request Sent! We\'ll call you soon.';
     btn.style.background = '#4a9455';
-    btn.disabled = true;
   }
   setTimeout(() => {
     if (form) form.reset();
