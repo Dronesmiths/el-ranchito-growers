@@ -217,8 +217,22 @@ section { padding: 5rem 2rem; }
   text-align: center; transition: var(--transition); cursor: pointer;
 }
 .occ-card:hover { background: rgba(255,255,255,0.14); transform: translateY(-4px); border-color: var(--gold); }
-.occ-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
-.occ-card h3 { color: white; font-size: 0.95rem; font-weight: 600; }
+.occ-card .icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  transition: var(--transition);
+}
+.occ-card .icon svg {
+  width: 26px; height: 26px;
+  stroke: rgba(255,255,255,0.75);
+  transition: var(--transition);
+}
+.occ-card:hover .icon { background: rgba(200,151,60,0.2); }
+.occ-card:hover .icon svg { stroke: var(--gold-light); }
+.occ-card h3 { color: white; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.3px; }
 
 /* ===== REVIEWS ===== */
 .reviews { background: var(--cream); }
@@ -325,23 +339,63 @@ section { padding: 5rem 2rem; }
 
 /* ===== FOOTER ===== */
 footer {
-  background: #0f2412; padding: 2rem;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 1rem; text-align: center;
+  background: #0f2412;
+  padding: 3rem 2rem 2rem;
 }
-footer .footer-brand { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; }
-.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 3rem; align-items: start;
+}
+
+.footer-left { display: flex; flex-direction: column; gap: 1.5rem; }
+
+footer .footer-brand {
+  font-family: 'Playfair Display', serif; color: white;
+  font-size: 1.5rem; font-weight: 700; letter-spacing: 1px;
+}
+footer .footer-brand span { display: block; font-size: 0.75rem; color: var(--gold-light); letter-spacing: 3px; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 500; margin-bottom: 0.2rem; }
+
+.footer-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
 .footer-links a { color: rgba(255,255,255,0.55); font-size: 0.85rem; transition: var(--transition); }
 .footer-links a:hover { color: var(--gold-light); }
-footer .copy { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
-.social-row { display: flex; gap: 1rem; }
+
+.footer-contact { display: flex; flex-direction: column; gap: 0.5rem; }
+.footer-contact a, .footer-contact p { color: rgba(255,255,255,0.65); font-size: 0.875rem; transition: var(--transition); }
+.footer-contact a:hover { color: var(--gold-light); }
+.footer-contact strong { color: rgba(255,255,255,0.35); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 0.1rem; }
+
+footer .copy { color: rgba(255,255,255,0.3); font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; }
+
+.social-row { display: flex; gap: 0.75rem; }
 .social-btn {
   width: 38px; height: 38px; border-radius: 50%;
-  background: rgba(255,255,255,0.1); color: white;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; transition: var(--transition);
+  font-size: 1rem; transition: var(--transition); border: 1px solid rgba(255,255,255,0.1);
 }
-.social-btn:hover { background: var(--gold); color: var(--green-dark); }
+.social-btn:hover { background: var(--gold); color: var(--green-dark); border-color: var(--gold); transform: translateY(-2px); }
+
+.footer-map {
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.footer-map iframe { width: 100%; height: 280px; display: block; border: none; filter: grayscale(20%) contrast(1.05); }
+.footer-map .map-label {
+  background: rgba(255,255,255,0.06); padding: 0.75rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-map .map-label span { color: rgba(255,255,255,0.6); font-size: 0.8rem; }
+.footer-map .map-label a { color: var(--gold-light); font-size: 0.8rem; font-weight: 600; transition: var(--transition); }
+.footer-map .map-label a:hover { color: var(--gold); }
+
+@media(max-width: 860px) {
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-map iframe { height: 220px; }
+}
 
 /* ===== GALLERY PAGE ===== */
 .page-hero {
